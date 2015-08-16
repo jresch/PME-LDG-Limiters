@@ -8,16 +8,16 @@ with periodic boundary condition and different initial conditions.
 ## Parameters
 Variables				| Description
 ----------------------- | -----------
-m, c, p					| equation
-R_left, R_right, dT     | boundary
-uI                      | the initial value
-J                       | number of cells
-basis_order             | basis
+m, c, p					| Equation
+R_left, R_right, dT     | Boundary
+uI                      | The initial value
+J                       | Number of cells
+basis_order             | Basis
 type_problem            | 0: CFL test (call main_test)
                         | 1: experiment (call main_ex)
                         | 2: application (call main_app)
-type_limiter            | using different limiters
-CFL                     | in CFL test, CFL is given outside PME.m
+type_limiter            | Different limiters
+CFL                     | In CFL test, CFL is given outside PME.m.
 
 The parameters are stored in an array named PARA :
 
@@ -35,24 +35,28 @@ PARA = [m, c, p;
 3. Problem:    PME.
 4. Initial:    Barenblatt Solution.
 5. Solution:   Barenblatt Solution.
+
 ### main_ex.m
 1. Objective:  Computes the error table.
 2. Output:     err_table.
 3. Problem:    PME.
 4. Initial:    Barenblatt Solution.
 5. Solution:   Barenblatt Solution.
+
 ### main_app1.m
 1. Objective:  Stores the moments of the numerical solution.
 2. Output:     Screenshots of the solution.
 3. Problem:    PME.
 4. Initial:    Two box solutions.
 5. Solution:   Unknown.
+
 ### main_app2.m
 1. Objective:  Stores the moments of the numerical solution.
 2. Output:     Screenshots of the solution.
 3. Problem:    PME.
 4. Initial:    cos(x).
 5. Solution:   Unknown.
+
 ### main_app3.m
 1. Objective:  Stores the moments of the numerical solution.
 2. Output:     Screenshots of the solution.
@@ -68,6 +72,7 @@ otherwise it returns -1.
 
 There are three global variables which store the information of
 limiters.
+
 1. count_mean  where the mean of u is < 0.
 2. count_osc   where the oscillation exist.
 3. count_pos   where the negative value exist.
@@ -75,4 +80,4 @@ limiters.
 > Numerical Simulation for Porous Medium Equation
 > by Local Discontinuous Galerkin Finite Element Method
 >
-> Auther: Qiang Zhang & Zi-Long Wu
+> Auther: Qiang Zhang and Zi-Long Wu
