@@ -5,9 +5,9 @@ function [ err ] = PME( PARA, uI, path_data, path_report )
 %   otherwise it returns -1.
 %   There are three global variables which store the information of
 %   limiters.
-%       count_mean  where the mean of u is < 0.
-%       count_osc   where the oscillation exist.
-%       count_pos   where the negative value exist.
+%       track_mean  where the mean of u is < 0.
+%       track_osc   where the oscillation exist.
+%       track_pos   where the negative value exist.
 
 global m;
 global c;
@@ -17,9 +17,9 @@ global dx;
 global psi;
 global psi_z;
 global mu;
-global count_mean;
-global count_osc;
-global count_pos;
+global track_mean;
+global track_osc;
+global track_pos;
 
 % extract parameters
 m = PARA(1,1);
@@ -38,7 +38,7 @@ mu = 1;
 [points,weights] = Quadrature_Set();
 % Mesh
 [grid,X] = Mesh_Set(points,R_left,R_right,J);
-% Time Step
+% Space & Time Step
 dx = max(grid(2,:)) * 2;
 if type_problem == 0
     CFL =  PARA(4,3);
@@ -54,9 +54,9 @@ dt = dT / loops;
 % Basis
 [psi,psi_z] = Basis_Set(points,basis_order);
 % Limiters
-count_mean = sparse(J,loops);
-count_osc = sparse(J,loops);
-count_pos = sparse(J,loops);
+track_mean = sparse(J,loops);
+track_osc = sparse(J,loops);
+track_pos = sparse(J,loops);
 % initialize
 u = uI(X);
 A = psi' * diag(weights) * psi;
@@ -120,7 +120,7 @@ if type_limiter ~= 0
     filename = sprintf('%s%s.mat',path_data,filename);
     save(filename,'m','c','p','R_left','R_right','dT', ...
         'J','basis_order','type_problem','type_limiter','mu', ...
-        'loops','count_mean','count_osc','count_pos');
+        'loops','track_mean','track_osc','track_pos');
 end
 end
 

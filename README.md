@@ -5,6 +5,31 @@ to solve the following Porous Medium Equations
 with periodic boundary condition and different initial conditions.
 > u_t = (u^m)_xx - c * u^p
 
+## Flow Chart
+
+```
+main_xx.m
+  - Define the paths of data and report.
+  - Define the parameters of problem (equation, boundary, initial).
+  - Define the parameters of method (cells, basis, limiter).
+  - Call PME.m to solve the problem.
+      - Extract parameters.
+      - Call Quadrature_Set.m to set up quadrature.
+      - Call Mesh_Set.m to generate mesh.
+      - Define space and time step
+        according to the pre-stored CFL condition number.
+      - Call Basis_Set.m to set up basis.
+      - Initialize the variables to track limiter.
+      - Set up the initial condition.
+      - Execute the for loop to solve the problem
+        > Using 3rd order Runge-Kutta time marching.
+        > For applications, the moments of solutions will be saved.
+        - Call L_pme.m to march.
+        - Call Limiter.m to adjust the solution.
+          - Call the corresponding limiter.
+      - If using limiter, save the trackers and other variables.
+```
+
 ## Parameters
 Variables				| Description
 ----------------------- | -----------
@@ -70,12 +95,11 @@ This function is the solver of PME and it returns the error.
 When type_problem = 0 or 1, it returns the error,
 otherwise it returns -1.
 
-There are three global variables which store the information of
-limiters.
+There are three global variables which tracks the limiters.
 
-1. count_mean  where the mean of u is < 0.
-2. count_osc   where the oscillation exist.
-3. count_pos   where the negative value exist.
+1. track_mean  where the mean of u is < 0.
+2. track_osc   where the oscillation exist.
+3. track_pos   where the negative value exist.
 
 ### limiter_zq.m
 > Numerical Simulation for Porous Medium Equation

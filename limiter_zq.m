@@ -6,9 +6,9 @@ function [ u_coord ] = limiter_zq( u_coord, loop )
 global psi;
 global dx;
 global mu;
-global count_mean;
-global count_osc;
-global count_pos;
+global track_mean;
+global track_osc;
+global track_pos;
 basis_order = size(psi, 2) - 1;
 threshold = mu * dx^2;
 u = psi * u_coord;
@@ -31,16 +31,16 @@ if basis_order ~= 1
     flag_osc = ((flag_left + flag_right) > 0) & flag_osc;
 end
 u_coord(2,flag_osc) = diff_left_mod(flag_osc)';
-count_osc(flag_osc,loop) = loop;
+track_osc(flag_osc,loop) = loop;
 %% Positive
 % u_mean >= 0
 flag_mean = u_coord(1,:)' < 0;
-count_mean(flag_mean,loop) = u_coord(1, flag_mean)';
+track_mean(flag_mean,loop) = u_coord(1, flag_mean)';
 u_coord(1, flag_mean) = 0;
 % some points < 0
 u = psi * u_coord;
 flag_pos = sum(u < 0, 1) > 0;
-count_pos(flag_pos,loop) = loop;
+track_pos(flag_pos,loop) = loop;
 if basis_order ~= 1
     u_coord(3:end,flag_pos) = 0;
 end
