@@ -39,13 +39,13 @@ for index_m = 1:length(list_m)
         path_data1 = sprintf('%s/Box1/',path_data);mkdir(path_data1);
         PME(PARA, uI, path_data1, path_report);
         fid = fopen(path_report,'at');
-        fprintf(fid, '%s| Box1| m = %d, J = %d, basis_order = %d\n', datestr(now), m, J * 2 ^ j, basis_order);
+        fprintf(fid, '%s | Box1| m = %d, J = %d, basis_order = %d\n', datestr(now), m, J, basis_order);
         fclose(fid);
         uI = @(x) 0.5 * ((abs(x)>=1) .* (abs(x)<=3) + (x>=1) .* (x<=3));
         path_data2 = sprintf('%s/Box2/',path_data);mkdir(path_data2);
         PME(PARA, uI, path_data2, path_report);
         fid = fopen(path_report,'at');
-        fprintf(fid, '%s| Box2| m = %d, J = %d, basis_order = %d\n', datestr(now), m, J * 2 ^ j, basis_order);
+        fprintf(fid, '%s | Box2| m = %d, J = %d, basis_order = %d\n', datestr(now), m, J, basis_order);
         fclose(fid);
     end
 end

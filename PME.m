@@ -48,7 +48,7 @@ else
             170, 270, 390, 490;
             490, 790, 1110, 1450;
             1110, 1850, 2610, 3370;];
-    loops = ceil(dT / dx / dx * CFL(basis_order,floor(m/2)));
+    loops = ceil(dT / dx / dx * CFL(basis_order,max(1,floor(m/2))));
 end
 dt = dT / loops;
 % Basis
