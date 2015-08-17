@@ -19,7 +19,7 @@ fclose(fid);
 
 list_m = [3];
 R = 3;
-dT = 4;
+dT = 3;
 J = 25;
 min_basis_order = 1;
 max_basis_order = 1;

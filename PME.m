@@ -84,7 +84,7 @@ for l = 1:loops
         filename = sprintf('PME-m%.1f-c%.1f-p%.1f-basis%d-lim%d-J%d-N%d',m,c,p,basis_order,type_limiter,J,ceil(l/floor(loops/100)));
         figname = sprintf('%s%s.png',path_data,filename);
         filename = sprintf('%s%s.mat',path_data,filename);
-        save(filename,'u','u_coord','X','R_left','R_right','loops');
+        save(filename,'u','u_coord','X','R_left','R_right','l','loops');
         fig = figure;
         set(fig,'visible','off');
         plot(X(:),u(:),'.-');
@@ -114,22 +114,13 @@ elseif type_problem == 2
     axis([R_left,R_right,-0.1,1.2]);
     print(fig,'-dpng',figname);
     err = -1;
-%     interface_func = @(t) sqrt(2*m*(m+1)/(m-1)) * t.^(1/(m+1));
-%     interface_cell = [  ceil((-interface_func((1:loops)*dt+1)-R_left)/dx),...
-%                         ceil((interface_func((1:loops)*dt+1)-R_left)/dx)];
-%     interface = sparse(interface_cell,[1:loops,1:loops],[1:loops,1:loops],J,loops);
-%     figure;
-%     subplot(1,2,1);plot(X(:),u(:),'b',X(:),u_exact_pme(:),'r');title(titlename);
-%     subplot(1,2,2);
-%     step = 15;
-%     [x0,y0,~] = find(interface(:,1:floor(end/step):end));
-%     [x1,y1,z1] = find(count_pos_diff(:,1:floor(end/step):end));
-%     [x2,y2,z2] = find(count_pos_side(:,1:floor(end/step):end));
-%     [x3,y3,z3] = find(count_pos_mean(:,1:floor(end/step):end));
-%     plot(x0,y0,'s',x1,y1,'o',x2,y2,'+',x3,y3,'*');
-%     legend('true','diff','side','mean');
-%     xlim([0,J+1]);set(gca,'xtick',[]);set(gca,'ytick',[]);
 end
-
+if type_limiter ~= 0
+    filename = sprintf('PME-m%.1f-c%.1f-p%.1f-basis%d-lim%d-J%d-ALL',m,c,p,basis_order,type_limiter,J);
+    filename = sprintf('%s%s.mat',path_data,filename);
+    save(filename,'m','c','p','R_left','R_right','dT', ...
+        'J','basis_order','type_problem','type_limiter','mu', ...
+        'loops','count_mean','count_osc','count_pos');
+end
 end
 
