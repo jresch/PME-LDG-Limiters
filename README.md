@@ -31,6 +31,8 @@ main_xx.m
 ```
 
 ## Parameters
+
+```
 Variables				| Description
 ----------------------- | -----------
 m, c, p					| Equation
@@ -43,7 +45,7 @@ type_problem            | 0: CFL test (call main_test)
                         | 2: application (call main_app)
 type_limiter            | Different limiters
 CFL                     | In CFL test, CFL is given outside PME.m.
-
+```
 The parameters are stored in an array named PARA :
 
 ```Matlab
@@ -55,39 +57,54 @@ PARA = [m, c, p;
 
 ## Scripts
 ### main_test.m
-1. Objective:  Test the CFL condition.
-2. Output:     CFL_table, which stores the minimum CFL number.
-3. Problem:    PME.
-4. Initial:    Barenblatt Solution.
-5. Solution:   Barenblatt Solution.
+
+```
+Objective:  Test the CFL condition.
+Output:     CFL_table, which stores the minimum CFL number.
+Problem:    PME.
+Initial:    Barenblatt Solution.
+Solution:   Barenblatt Solution.
+```
 
 ### main_ex.m
-1. Objective:  Computes the error table.
-2. Output:     err_table.
-3. Problem:    PME.
-4. Initial:    Barenblatt Solution.
-5. Solution:   Barenblatt Solution.
+
+```
+Objective:  Computes the error table.
+Output:     err_table.
+Problem:    PME.
+Initial:    Barenblatt Solution.
+Solution:   Barenblatt Solution.
+```
 
 ### main_app1.m
-1. Objective:  Stores the moments of the numerical solution.
-2. Output:     Screenshots of the solution.
-3. Problem:    PME.
-4. Initial:    Two box solutions.
-5. Solution:   Unknown.
+
+```
+Objective:  Stores the moments of the numerical solution.
+Output:     Screenshots of the solution.
+Problem:    PME.
+Initial:    Two box solutions.
+Solution:   Unknown.
+```
 
 ### main_app2.m
-1. Objective:  Stores the moments of the numerical solution.
-2. Output:     Screenshots of the solution.
-3. Problem:    PME.
-4. Initial:    cos(x).
-5. Solution:   Unknown.
+
+```
+Objective:  Stores the moments of the numerical solution.
+Output:     Screenshots of the solution.
+Problem:    PME.
+Initial:    cos(x).
+Solution:   Unknown.
+```
 
 ### main_app3.m
-1. Objective:  Stores the moments of the numerical solution.
-2. Output:     Screenshots of the solution.
-3. Problem:    PME with absorption.
-4. Initial:    |Sin(x)| with platform.
-5. Solution:   Unknown.
+
+```
+Objective:  Stores the moments of the numerical solution.
+Output:     Screenshots of the solution.
+Problem:    PME with absorption.
+Initial:    |Sin(x)| with platform.
+Solution:   Unknown.
+```
 
 ## Functions
 ### PME.m
@@ -97,9 +114,9 @@ otherwise it returns -1.
 
 There are three global variables which tracks the limiters.
 
-1. track_mean  where the mean of u is < 0.
-2. track_osc   where the oscillation exist.
-3. track_pos   where the negative value exist.
+- track_mean  where the mean of u is < 0.
+- track_osc   where the oscillation exist.
+- track_pos   where the negative value exist.
 
 ### limiter_zq.m
 > Numerical Simulation for Porous Medium Equation
