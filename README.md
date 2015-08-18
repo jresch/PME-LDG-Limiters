@@ -113,16 +113,16 @@ Solution:   Unknown.
 function [err] = PME(PARA, uI, path_data, path_report)
 ```
 This function is the solver of PME and it returns the error.
-When type_problem = 0 or 1, it returns the error,
+When `type_problem` = 0 or 1, it returns the error,
 otherwise it returns -1.
 
 This function also saves the moments of the solution to
 observe the movement of the solution
 and it saves three global variables which tracks the limiters.
 
-- track_mean  records the cells where the cell average is negative.
-- track_osc   records the cells where the oscillation exist.
-- track_pos   records the cells where the negative value exist.
+- `track_mean`  records the cells where the cell average is negative.
+- `track_osc`   records the cells where the oscillation exist.
+- `track_pos`   records the cells where the negative value exist.
 
 ### L_pme.m
 
@@ -162,7 +162,7 @@ function [points, weights] = Quadrature_Set()
 This function generates the gauss points and the corresponding weights
 for the quadrature.
 
-**points** is column vector and **weights** is row vector.
+`points` is column vector and `weights` is row vector.
 
 ```
 \int\limits_{-1}^{1}f(x)dx = weights * f(points)
@@ -176,8 +176,8 @@ function [grid,X] = Mesh_Set(points,R_left,R_right,J)
 
 This function generates the mesh. (mesh is a reserved word in Matlab.)
 
-**grid** stores the center and half length of each cell.
-**X** is the mesh.
+`grid` stores the center and half length of each cell.
+`X` is the mesh.
 
 ### Basis_Set.m
 
