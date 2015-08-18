@@ -207,7 +207,7 @@ This minmod function is used in limiters. The principle is:
 
 ```
 minmod(a1, a2, a3, threshold)
-    = a1        if abs(a1) <= threshold
-      s * a     if s = sign(ai), i = 1, 2, 3
-      0         otherwise
+    = a1                            if abs(a1) <= threshold
+      s * min(abs([a1, a2, a3]))    if s = sign(ai), i = 1, 2, 3
+      0                             otherwise
 ```
