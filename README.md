@@ -196,3 +196,18 @@ function [y] = BarenblattSolution(x, t, m)
 
 This function is the famous Barenblatt Solution
 which is the exact solution of Porous Medium Equation.
+
+### minmod.m
+
+```Matlab
+function [a, flag] = minmod(a1, a2, a3, threshold)
+```
+
+This minmod function is used in limiters. The principle is:
+
+```
+minmod(a1, a2, a3, threshold)
+    = a1        if abs(a1) <= threshold
+      s * a     if s = sign(ai), i = 1, 2, 3
+      0         otherwise
+```
