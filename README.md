@@ -1,8 +1,8 @@
 # PME-DG-Limiters
 To compare several limiters
-by using Runge-Kutta Discontinous Galerkin Finite Element Method
-to solve the following Porous Medium Equations
-with periodic boundary condition and different initial conditions.
+by using **Runge-Kutta Discontinous Galerkin Finite Element Method**
+to solve the following **Porous Medium Equation**
+with **periodic boundary condition** and different initial conditions.
 > u_t = (u^m)_xx - c * u^p
 
 ## Flow Chart
@@ -162,7 +162,7 @@ function [points, weights] = Quadrature_Set()
 This function generates the gauss points and the corresponding weights
 for the quadrature.
 
-*points* is column vector and *weights* is row vector.
+**points** is column vector and **weights** is row vector.
 
 ```
 \int\limits_{-1}^{1}f(x)dx = weights * f(points)
@@ -176,8 +176,8 @@ function [grid,X] = Mesh_Set(points,R_left,R_right,J)
 
 This function generates the mesh. (mesh is a reserved word in Matlab.)
 
-*grid* stores the center and half length of each cell.
-*X* is the mesh.
+**grid** stores the center and half length of each cell.
+**X** is the mesh.
 
 ### Basis_Set.m
 
