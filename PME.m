@@ -34,7 +34,7 @@ type_problem = PARA(4,1);
 type_limiter = PARA(4,2);
 % mu = 4/3*(m-2)/m/(m^2-1)/T0^(3/(m+1));
 mu = 1;
-% Gauss-Lobatto Quadrature
+% Quadrature
 [points,weights] = Quadrature_Set();
 % Mesh
 [grid,X] = Mesh_Set(points,R_left,R_right,J);
