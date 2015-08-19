@@ -3,7 +3,7 @@ function [ u_coord ] = limiter_yy( u_coord, loop )
 global psi;
 global track_pos;
 
-% This limiter do not diminish the oscillation.
+% This limiter do not attenuate the oscillation.
 %% Positive
 % maske sure all the cell averages >= 0
 % Because of machine error, sometimes the cell average will be extreme

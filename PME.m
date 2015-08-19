@@ -35,14 +35,14 @@ num_fig = 200;
 dx = max(grid(2,:)) * 2;
 if type_problem == 0
     CFL =  PARA(4,3);
-    loops = ceil(dT / dx / dx * CFL);
 else
-    CFL = [ 50, 70, 100, 130;
+    CFL_list = [ 50, 70, 100, 130;
             170, 270, 390, 490;
             490, 790, 1110, 1450;
             1110, 1850, 2610, 3370;];
-    loops = ceil(dT / dx / dx * CFL(basis_order,max(1,floor(m/2))));
+    CFL = CFL_list(basis_order,max(1,floor(m/2)));
 end
+loops = ceil(dT / dx / dx * CFL);
 dt = dT / loops;
 % Basis
 [psi,psi_z] = Basis_Set(points,basis_order);

@@ -1,6 +1,6 @@
 function [ points, weights ] = Quadrature_Set( )
 
-% Gauss-Lobatto Quadrature, six points gauss numerical integration
+% Gauss-Lobatto Quadrature, six points
 % x1 = sqrt((7 - 2 * sqrt(7)) / 21);
 % x2 = sqrt((7 + 2 * sqrt(7)) / 21);
 % w1 = (14 + sqrt(7)) / 30;
@@ -8,6 +8,7 @@ function [ points, weights ] = Quadrature_Set( )
 % points = [-1;-x2;-x1;x1;x2;1];
 % weights = [1/15,w2,w1,w1,w2,1/15];
 
+% Gauss–Legendre quadrature, five points
 x1 = sqrt(5-2*sqrt(10/7))/3;
 x2 = sqrt(5+2*sqrt(10/7))/3;
 points = [-1;-x2;-x1;0;x1;x2;1];

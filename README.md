@@ -31,29 +31,69 @@ main_xx.m
       - If using limiter, save the trackers and other variables.
 ```
 
-## Parameters
+## Data Structure
+### Parameters
+Parameters for solving the problem.
+
+```
+Parameters				| Description
+----------------------- | -----------
+m, c, p					| Parameters of equation.
+R_left, R_right         | Region is [R_left, R_right].
+dT                      | Time duration.
+uI                      | Initial value of solution.
+J                       | Number of cells.
+basis_order             | Basis order.
+type_problem            | 0: CFL test (call main_test).
+                        | 1: Experiment (call main_ex).
+                        | 2: Application (call main_app).
+type_limiter            | Different limiters.
+CFL                     | In CFL test, CFL is given outside PME.m.
+mu = 1                  | Parameter of the threshold in the limiter
+                        | who attenuates the oscillation.
+num_fig = 200           | Number of figures of the solution.
+```
+
+### Variables
+Variables during solving the PME problem.
 
 ```
 Variables				| Description
 ----------------------- | -----------
-m, c, p					| Equation
-R_left, R_right, dT     | Boundary
-uI                      | The initial value
-J                       | Number of cells
-basis_order             | Basis
-type_problem            | 0: CFL test (call main_test)
-                        | 1: experiment (call main_ex)
-                        | 2: application (call main_app)
-type_limiter            | Different limiters
-CFL                     | In CFL test, CFL is given outside PME.m.
-```
-The parameters are stored in an array named PARA :
-
-```Matlab
-PARA = [m, c, p;
-		R_left, R_right, dT;
-		J, basis_order, 0;
-		type_problem, type_limiter, CFL;];
+PARA                    | PARA = [m, c, p;
+                        |         R_left, R_right, dT;
+                        |         J, basis_order, 0;
+                        |         type_problem, type_limiter, CFL;];
+                        | Scripts use PARA to transmit parameters.
+points, weights         | size(points) = (7, 1)
+                        | size(weights) = (1, 7)
+                        | The gauss points in [-1, 1] and the corresponding weights.
+                        | (Using five points Gauss–Legendre quadrature.)
+grid                    | size(grid) = (2, J)
+                        | grid(1, j) stores the center of the j-th cell.
+                        | grid(2, j) stores half of the length of the j-th cell.
+X                       | size(X) = (7, J)
+                        | X(:, j) stores the guass points in the j-th cell.
+dx                      | Space step.
+dt                      | Time step.
+loops                   | Number of loops.
+psi                     | size(psi) = (7, basis_order + 1)
+                        | psi(:, i + 1) stores the values of the i-th degree Legendre polynomial
+                        | on the gauss points.
+psi_z                   | size(psi_z) = (7, basis_order + 1)
+                        | psi_z(:, i + 1) stores the values of the drivative
+                        | of the i-th degree Legendre polynomial on the gauss points.
+u                       | size(u) = (7, J)
+                        | u = u(X), X(:, j) stores the values of solution on the guass points in the j-th cell.
+u_coord                 | size(u_coord) = (basis_order + 1, J)
+                        | u_coord(i + 1, j) stores the weights of the i-th degree Legendre polynomial.
+track_mean              | size(track_mean) = (J, loops), it's a sparse matrix.
+                        | track_mean(j, loop) = cell average,
+                        | if the cell average of the j-th cell is negative, otherwise it equals 0.
+track_osc               | size(track_osc) = (J, loops), it's a sparse matrix.
+                        | track_osc(j, loop) ~= 0, if there's oscillation in the j-th cell.
+track_pos               | size(track_pos) = (J, loops), it's a sparse matrix.
+                        | track_pos(j, loop) ~= 0, if there's negative value in the j-th cell.
 ```
 
 ## Scripts
