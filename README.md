@@ -25,6 +25,7 @@ main_xx.m
         > Using 3rd order Runge-Kutta time marching.
         > For applications, the moments of solutions will be saved.
         - Call L_pme.m to march.
+            - Call H_pme.m to calculate the flux.
         - Call Limiter.m to adjust the solution.
           - Call the corresponding limiter.
       - If using limiter, save the trackers and other variables.
@@ -130,13 +131,25 @@ and it saves three global variables which tracks the limiters.
 ### L_pme.m
 
 ```Matlab
-function [u_coord] = L_pme(u_coord, loop, type_limiter)
+function [ut_coord] = L_pme(u_coord, loop, type_limiter)
 ```
 
 This function is to solve the L(u)
 where u_t = L(u) is the first order ODE system.
 
-If calling limiter_yy.m, this function will adjust the cell average.
+If calling limiter_yy.m, this function will call twice H_pme.m
+and use the combination of the flux to adjust the cell average
+and make sure the cell average is non-negative.
+(Sometimes there are some extreme small negative values due to the machine error.
+Those values will be replaced with zero and it won't affect the accuracy.)
+
+### H_pme.m
+
+```Matlab
+function [flux_ur, q] = H_pme(u, loop, psi, psi_z)
+```
+
+This function is to calculate the flux according to the given basis.
 
 ### Limiter.m
 
@@ -170,7 +183,8 @@ This limiter is designed according to the following article.
 >
 > Auther: LiGuo and YangYang
 
-This function only adjust those points with negative values.
+This function uses zero to replace the extreme small negative cell averages
+and adjust those points with negative values.
 The codes of adjusting negative cell average is in L_pme.m.
 
 ### Quadrature_Set.m
