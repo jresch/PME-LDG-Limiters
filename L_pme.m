@@ -27,7 +27,7 @@ if type_limiter == 2
     theta_l = theta_r;
     % case0
     unew_coord = u_coord(1,:) - lambda * (flux_ur - flux_ur([end,1:end-1]));
-    case0 = unew_coord < eps;
+    case0 = unew_coord < 0;
     track_mean(case0,loop) = unew_coord(case0)';
     % case1 F_r <= 0, F_l >= 0
     % case2 F_r <= 0, F_l < 0

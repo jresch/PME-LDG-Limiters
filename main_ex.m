@@ -13,10 +13,10 @@ list_m = [3];
 R = 6;
 dT = 0.5;
 J_initial = 50;
-min_basis_order = 3;
+min_basis_order = 4;
 max_basis_order = 4;
 type_problem = 1;
-type_limiter = 2;
+type_limiter = 1;
 err_table = zeros(num_refine + 1, 2 * (max_basis_order - min_basis_order) + 2, length(list_m));
 tic;
 for index_m = 1:length(list_m)

@@ -235,6 +235,15 @@ This function uses zero to replace the extreme small negative cell averages
 and adjust those points with negative values.
 The codes of adjusting negative cell average is in L_pme.m.
 
+### limiter_pos.m
+
+```Matlab
+function [u_coord] = limiter_pos(u_coord, loop)
+```
+
+This limiter uses 2 degree polynomial to attenuate the oscillation
+and uses the same process as limiter_zq to keep solution positive.
+
 ### Quadrature_Set.m
 
 ```Matlab

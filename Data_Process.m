@@ -1,11 +1,11 @@
-path_data = '.\data\app1_20150819T144453\Box1\';
+path_data = '.\data\app1_20150819T224520\Box1\';
 
 num_moments = 25;
 list_m = [3];
 J = 50;
 min_basis_order = 2;
 max_basis_order = 2;
-type_limiter = 1;
+type_limiter = 2;
 for index_m = 1:length(list_m)
     m = list_m(index_m);
     for i = 0: max_basis_order - min_basis_order
@@ -19,7 +19,8 @@ for index_m = 1:length(list_m)
         [x_pos,y_pos,~] = find(track_pos(:,list_loop));
         plot(x_mean,y_mean,'s',x_osc,y_osc,'.',x_pos,y_pos,'o');
         if ~isempty(value_mean)
-            fprintf('min(negative average) = %.4e, mean(negative average) = %.4e\n', min(value_mean), mean(value_mean));
+            value_mean = abs(value_mean);
+            fprintf('min(negative average) = %.4e, mean(negative average) = %.4e\n', max(value_mean), mean(value_mean));
         end
     end
 end
