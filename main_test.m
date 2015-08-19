@@ -1,14 +1,5 @@
 clear;close all;
-% main_test.m
-%   Objective:  Test the CFL condition.
-%   Output:     CFL_table, which stores the minimum CFL number.
-%   Problem:    PME.
-%   Initial:    Barenblatt Solution.
-%   Solution:   Barenblatt Solution.
-% PARA = [  m, c, p;
-%           R_left, R_right, dT;
-%           J, basis_order, 0;
-%           type_problem, type_limiter, CFL;];
+
 date = datestr(now,30);
 path_data = sprintf('./data/test_%s/',date);
 path_report = sprintf('%sreport_%s.txt',path_data, date);

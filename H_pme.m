@@ -1,5 +1,4 @@
 function [ flux_ur, q ] = H_pme( u, loop, psi, psi_z )
-%H_PME
 
 global m;
 global weights;

@@ -1,14 +1,5 @@
 clear;close all;
-% main_ex.m
-%   Objective:  Computes the error table.
-%   Output:     err_table.
-%   Problem:    PME.
-%   Initial:    Barenblatt Solution.
-%   Solution:   Barenblatt Solution.
-% PARA = [  m, c, p;
-%           R_left, R_right, dT;
-%           J, basis_order, 0;
-%           type_problem, type_limiter, CFL;];
+
 date = datestr(now,30);
 path_data = sprintf('./data/ex_%s/',date);
 path_report = sprintf('%sreport_%s.txt',path_data, date);

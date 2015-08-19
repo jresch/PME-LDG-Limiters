@@ -1,14 +1,5 @@
 clear;close all;
-% main_app2.m
-%   Objective:  Stores the moments of the numerical solution.
-%   Output:     Screenshots of the solution.
-%   Problem:    PME.
-%   Initial:    cos(x).
-%   Solution:   Unknown.
-% PARA = [  m, c, p;
-%           R_left, R_right, dT;
-%           J, basis_order, 0;
-%           type_problem, type_limiter, CFL;];
+
 date = datestr(now,30);
 path_data = sprintf('./data/app2_%s/',date);
 path_report = sprintf('%sreport_%s.txt',path_data, date);

@@ -1,5 +1,4 @@
 function [ u_coord ] = limiter_yy( u_coord, loop )
-%LIMITER_YY
 
 global psi;
 global track_pos;

@@ -1,5 +1,5 @@
 function [ points, weights ] = Quadrature_Set( )
-%QUADRATURE_SET Integration
+
 % Gauss-Lobatto Quadrature, six points gauss numerical integration
 % x1 = sqrt((7 - 2 * sqrt(7)) / 21);
 % x2 = sqrt((7 + 2 * sqrt(7)) / 21);

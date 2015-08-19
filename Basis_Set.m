@@ -1,5 +1,5 @@
 function [ psi, psi_z ] = Basis_Set( points, basis_order )
-%BASIS_SET Set the basis
+
 psi_full = zeros(size(points,1),5);
 psi_z_full = zeros(size(points,1),5);
 psi_full(:, 1) = ones(size(points,1),1);

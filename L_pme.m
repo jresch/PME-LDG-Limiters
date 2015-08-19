@@ -1,5 +1,4 @@
 function [ ut_coord ] = L_pme( u_coord, loop, type_limiter )
-%L_PME u_t = L(u)
 
 global m;
 global c;

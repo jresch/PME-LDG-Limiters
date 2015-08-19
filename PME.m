@@ -1,13 +1,4 @@
 function [ err ] = PME( PARA, uI, path_data, path_report )
-% PME.m
-%   This function is the solver of PME and it returns the error.
-%   When type_problem = 0 or 1, it returns the error,
-%   otherwise it returns -1.
-%   There are three global variables which store the information of
-%   limiters.
-%       track_mean  where the mean of u is < 0.
-%       track_osc   where the oscillation exist.
-%       track_pos   where the negative value exist.
 
 global m;
 global c;

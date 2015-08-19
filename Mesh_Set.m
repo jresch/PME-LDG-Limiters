@@ -1,5 +1,4 @@
 function [ grid, X ] = Mesh_Set( points, R_left, R_right, J)
-%MESH_SET Initialize the mesh
 
 h_half = (R_right - R_left) / 2 / J;
 grid = ones(2,J);

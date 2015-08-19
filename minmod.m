@@ -1,5 +1,4 @@
 function [ a, flag ] = minmod( a1, a2, a3, threshold )
-%MINMOD 
 
 a = zeros(size(a1));
 flag = zeros(size(a1));

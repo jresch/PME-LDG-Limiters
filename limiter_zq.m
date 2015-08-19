@@ -1,8 +1,5 @@
 function [ u_coord ] = limiter_zq( u_coord, loop )
-%LIMITER_ZQ
-%   Numerical Simulation for Porous Medium Equation
-%   by Local Discontinuous Galerkin Finite Element Method
-%   Auther: Qiang Zhang & Zi-Long Wu
+
 global psi;
 global dx;
 global mu;
