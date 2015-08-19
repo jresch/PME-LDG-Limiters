@@ -36,7 +36,7 @@ for index_m = 1:size(list_mcp,1)
         path_dir = sprintf('%s/m%.1f-c%.1f-p%.1f/',path_data,m,c,p);mkdir(path_dir);
         PME(PARA, uI, path_dir, path_report);
         fid = fopen(path_report,'at');
-        fprintf(fid, '%s | m%.1f, c%.1f, p%.1f, J = %d, basis_order = %d\n', datestr(now), m, c, p, J, basis_order);
+        fprintf(fid, '%s | m%.1f, c%.1f, p%.1f, J = %d, basis_order = %d, limiter = %d\n', datestr(now), m, c, p, J, basis_order, type_limiter);
         fclose(fid);
     end
 end

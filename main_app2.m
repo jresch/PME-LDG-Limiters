@@ -28,7 +28,7 @@ for index_m = 1:length(list_m)
         uI = @(x) cos(x) .* (abs(x)<=pi/2);
         PME(PARA, uI, path_data, path_report);
         fid = fopen(path_report,'at');
-        fprintf(fid, '%s | m = %d, J = %d, basis_order = %d\n', datestr(now), m, J, basis_order);
+        fprintf(fid, '%s | m = %d, J = %d, basis_order = %d, limiter = %d\n', datestr(now), m, J, basis_order, type_limiter);
         fclose(fid);
     end
 end

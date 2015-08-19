@@ -31,7 +31,7 @@ for i = 0: max_basis_order - min_basis_order
             uI = @(x) BarenblattSolution(x,1,m);
         err_table(j + 1, 2 * i + 1, index_m) = PME(PARA, uI, path_data, path_report);
         fid = fopen(path_report,'at');
-        fprintf(fid, '%s: m = %d, J = %d, basis_order = %d\n', datestr(now), m, J_initial * 2 ^ j, basis_order);
+        fprintf(fid, '%s | m = %d, J = %d, basis_order = %d, limiter = %d\n', datestr(now), m, J_initial * 2 ^ j, basis_order, type_limiter);
         fclose(fid);
     end
     err_table(1, 2 * i + 2, index_m) = 0;

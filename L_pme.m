@@ -27,7 +27,7 @@ if type_limiter == 2
     theta_l = theta_r;
     % case0
     unew_coord = u_coord(1,:) - lambda * (flux_ur - flux_ur([end,1:end-1]));
-    case0 = unew_coord < 0;
+    case0 = unew_coord < eps;
     track_mean(case0,loop) = unew_coord(case0)';
     % case1 F_r <= 0, F_l >= 0
     % case2 F_r <= 0, F_l < 0
@@ -56,5 +56,7 @@ A = psi' * diag(weights) * psi;
 ut_coord = A \ (RHS / (dx/2));
 
 unew_coord = u_coord + dt * ut_coord;
-assert(sum(unew_coord(1,:) < -eps) == 0);
+
+assert(sum(unew_coord(1,:) < -eps*10) == 0);
+
 end

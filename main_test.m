@@ -40,7 +40,7 @@ for index_m = 1:length(list_m)
         end
         CFL_table(i + 1, index_m) = CFL;
         fid = fopen(path_report,'at');
-        fprintf(fid, 'm = %d, J = %d, basis_order = %d, CFL = %d\n', m, J, basis_order,CFL);
+        fprintf(fid, '%s | m = %d, J = %d, basis_order = %d, limiter = %d\n', datestr(now), m, J, basis_order, type_limiter);
         fclose(fid);
     end
 end
