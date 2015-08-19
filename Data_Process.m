@@ -18,5 +18,8 @@ for index_m = 1:length(list_m)
         [x_osc,y_osc,~] = find(track_osc(:,list_loop));
         [x_pos,y_pos,~] = find(track_pos(:,list_loop));
         plot(x_mean,y_mean,'s',x_osc,y_osc,'.',x_pos,y_pos,'o');
+        if ~isempty(value_mean)
+            fprintf('min(negative average) = %.4e, mean(negative average) = %.4e\n', min(value_mean), mean(value_mean));
+        end
     end
 end
