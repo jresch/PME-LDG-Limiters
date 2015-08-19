@@ -76,6 +76,9 @@ Initial:    Barenblatt Solution.
 Solution:   Barenblatt Solution.
 ```
 
+When writing new limiters, we can use this script to test
+if the limiter works and how the limiter works.
+
 ### main_app1.m
 
 ```
@@ -127,11 +130,13 @@ and it saves three global variables which tracks the limiters.
 ### L_pme.m
 
 ```Matlab
-function [u_coord] = L_pme(u_coord, loop)
+function [u_coord] = L_pme(u_coord, loop, type_limiter)
 ```
 
 This function is to solve the L(u)
 where u_t = L(u) is the first order ODE system.
+
+If calling limiter_yy.m, this function will adjust the cell average.
 
 ### Limiter.m
 
@@ -152,6 +157,21 @@ This limiter is designed according to the following article.
 > by Local Discontinuous Galerkin Finite Element Method
 >
 > Auther: Qiang Zhang and Zi-Long Wu
+
+### limiter_yy.m
+
+```Matlab
+function [u_coord] = limiter_yy(u_coord, loop)
+```
+
+This limiter is designed according to the following article.
+> Positivity-preserving high-order local discontinuous Galerkin method
+> for parabolic equations with blow-up solutions
+>
+> Auther: LiGuo and YangYang
+
+This function only adjust those points with negative values.
+The codes of adjusting negative cell average is in L_pme.m.
 
 ### Quadrature_Set.m
 

@@ -14,6 +14,7 @@ global c;
 global p;
 global weights;
 global dx;
+global dt;
 global psi;
 global psi_z;
 global mu;
@@ -34,6 +35,7 @@ type_problem = PARA(4,1);
 type_limiter = PARA(4,2);
 % mu = 4/3*(m-2)/m/(m^2-1)/T0^(3/(m+1));
 mu = 1;
+num_fig = 200;
 % Quadrature
 [points,weights] = Quadrature_Set();
 % Mesh
@@ -67,21 +69,21 @@ u_coord = Limiter(u_coord,1,type_limiter);
 for l = 1:loops
     u0_coord = u_coord;
     % step 1
-    u_coord = L_pme(u0_coord, l);
+    u_coord = L_pme(u0_coord,l,type_limiter);
     u1_coord = u0_coord + u_coord * dt;
     u1_coord = Limiter(u1_coord,l,type_limiter);
     % step 2
-    u_coord = L_pme(u1_coord, l);
+    u_coord = L_pme(u1_coord,l,type_limiter);
     u2_coord = u0_coord * 3/4 + u1_coord /4 + u_coord * dt/4;
     u2_coord = Limiter(u2_coord,l,type_limiter);
     % step 3
-    u_coord = L_pme(u2_coord, l);
+    u_coord = L_pme(u2_coord,l,type_limiter);
     u3_coord = u0_coord / 3 + u2_coord * 2/3 + u_coord * dt*2/3;
     u3_coord = Limiter(u3_coord,l,type_limiter);
     u_coord = u3_coord;
-    if (type_problem == 2) && (mod(l,floor(loops/100)) == 1)
+    if (type_problem == 2) && (mod(l,floor(loops/num_fig)) == 1)
         u = psi * u_coord;
-        filename = sprintf('PME-m%.1f-c%.1f-p%.1f-basis%d-lim%d-J%d-N%d',m,c,p,basis_order,type_limiter,J,ceil(l/floor(loops/100)));
+        filename = sprintf('PME-m%.1f-c%.1f-p%.1f-basis%d-lim%d-J%d-N%d',m,c,p,basis_order,type_limiter,J,ceil(l/floor(loops/num_fig)));
         figname = sprintf('%s%s.png',path_data,filename);
         filename = sprintf('%s%s.mat',path_data,filename);
         save(filename,'u','u_coord','X','R_left','R_right','l','loops');
@@ -104,7 +106,7 @@ elseif type_problem == 1
     titlename = sprintf('m = %d, J = %d, order = %d', m, J, basis_order);
     figure;plot(X(:),u(:),'b',X(:),u_exact_pme(:),'r');title(titlename);
 elseif type_problem == 2
-    filename = sprintf('PME-m%.1f-c%.1f-p%.1f-basis%d-lim%d-J%d-N%d',m,c,p,basis_order,type_limiter,J,ceil(loops/floor(loops/100))+1);
+    filename = sprintf('PME-m%.1f-c%.1f-p%.1f-basis%d-lim%d-J%d-N%d',m,c,p,basis_order,type_limiter,J,ceil(loops/floor(loops/num_fig))+1);
     figname = sprintf('%s%s.png',path_data,filename);
     filename = sprintf('%s%s.mat',path_data,filename);
     save(filename,'u','u_coord','X','R_left','R_right','loops');

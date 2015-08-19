@@ -33,7 +33,7 @@ end
 u_coord(2,flag_osc) = diff_left_mod(flag_osc)';
 track_osc(flag_osc,loop) = loop;
 %% Positive
-% u_mean >= 0
+% maske sure all the cell averages >= 0
 flag_mean = u_coord(1,:)' < 0;
 track_mean(flag_mean,loop) = u_coord(1, flag_mean)';
 u_coord(1, flag_mean) = 0;
