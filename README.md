@@ -238,7 +238,7 @@ The codes of adjusting negative cell average is in L_pme.m.
 ### limiter_pos1.m
 
 ```Matlab
-function [u_coord] = limiter_pos(u_coord, loop)
+function [u_coord] = limiter_pos1(u_coord, loop)
 ```
 
 This limiter uses 2 degree polynomial to attenuate the oscillation
@@ -247,7 +247,7 @@ and uses the same process as limiter_zq to keep solution positive.
 ### limiter_pos2.m
 
 ```Matlab
-function [u_coord] = limiter_pos(u_coord, loop)
+function [u_coord] = limiter_pos2(u_coord, loop)
 ```
 
 This limiter attenuate the oscillation without reducing the degree of polynomials
