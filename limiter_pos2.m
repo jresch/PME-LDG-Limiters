@@ -1,8 +1,9 @@
-function [ u_coord ] = limiter_pos( u_coord, loop )
+function [ u_coord ] = limiter_pos2( u_coord, loop )
 
 global psi;
 global dx;
 global mu;
+global weights;
 global track_mean;
 global track_osc;
 global track_pos;
@@ -18,15 +19,11 @@ diff_right = u(end,:)' - u_mean;
 flag_osc = (flag_left + flag_right) > 0;
 track_osc(flag_osc,loop) = loop;
 % diminish the oscillation
-if basis_order == 1
-    u_coord(2,flag_osc) = diff_left_mod(flag_osc)';
-else
-    if basis_order > 2
-        u_coord(4:end,flag_osc) = 0;
-    end
-    u_coord(2,flag_osc) = (diff_right_mod(flag_osc) + diff_left_mod(flag_osc))' / 2;
-    u_coord(3,flag_osc) = (diff_right_mod(flag_osc) - diff_left_mod(flag_osc))' / 2;
-end
+W = 1 ./ sqrt(diag(psi' * diag(weights) * psi));
+W = diag(W(2:end));
+A = [psi(end,2:end);psi(1,2:end)];
+B = [diff_right_mod(flag_osc)';-diff_left_mod(flag_osc)'] - A * u_coord(2:end, flag_osc);
+u_coord(2:end,flag_osc) = W * ((A * W) \ B) + u_coord(2:end, flag_osc);
 
 %% Positive
 % maske sure all the cell averages >= 0

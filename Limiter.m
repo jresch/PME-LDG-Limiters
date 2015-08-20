@@ -7,7 +7,9 @@ switch type_limiter
     case 2
         u_coord = limiter_yy(u_coord, loop);
     case 3
-        u_coord = limiter_pos(u_coord, loop);
+        u_coord = limiter_pos1(u_coord, loop);
+    case 4
+        u_coord = limiter_pos2(u_coord, loop);
 end
 
 end

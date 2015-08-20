@@ -13,10 +13,10 @@ list_m = [3];
 R = 6;
 dT = 3;
 J = 50;
-min_basis_order = 2;
-max_basis_order = 2;
+min_basis_order = 3;
+max_basis_order = 3;
 type_problem = 2;
-type_limiter = 2;
+type_limiter = 3;
 tic;
 for index_m = 1:length(list_m)
     m = list_m(index_m);

@@ -9,14 +9,14 @@ fprintf(fid, 'Executed File: main_ex.m\nExecuted Time: %s\n\nOutput:\n',datestr(
 fclose(fid);
 
 num_refine = 0;
-list_m = [3];
+list_m = [4,5];
 R = 6;
 dT = 0.5;
 J_initial = 50;
-min_basis_order = 4;
+min_basis_order = 1;
 max_basis_order = 4;
 type_problem = 1;
-type_limiter = 1;
+type_limiter = 3;
 err_table = zeros(num_refine + 1, 2 * (max_basis_order - min_basis_order) + 2, length(list_m));
 tic;
 for index_m = 1:length(list_m)

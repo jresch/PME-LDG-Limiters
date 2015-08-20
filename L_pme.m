@@ -56,7 +56,8 @@ A = psi' * diag(weights) * psi;
 ut_coord = A \ (RHS / (dx/2));
 
 unew_coord = u_coord + dt * ut_coord;
-
-assert(sum(unew_coord(1,:) < -eps*10) == 0);
+if type_limiter == 2
+    assert(sum(unew_coord(1,:) < -eps*10) == 0);
+end
 
 end
