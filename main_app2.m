@@ -15,7 +15,7 @@ J = 25;
 min_basis_order = 1;
 max_basis_order = 1;
 type_problem = 2;
-type_limiter = 1;
+type_limiter = 000;
 tic;
 for index_m = 1:length(list_m)
     m = list_m(index_m);

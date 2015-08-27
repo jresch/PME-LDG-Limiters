@@ -27,7 +27,6 @@ main_xx.m
         - Call L_pme.m to march.
             - Call H_pme.m to calculate the flux.
         - Call Limiter.m to adjust the solution.
-          - Call the corresponding limiter.
       - If using limiter, save the trackers and other variables.
 ```
 
@@ -47,7 +46,21 @@ basis_order             | Basis order.
 type_problem            | 0: CFL test (call main_test).
                         | 1: Experiment (call main_ex).
                         | 2: Application (call main_app).
-type_limiter            | Different limiters.
+type_limiter            | Correspond to different limiter combinations.
+                        | The value is 100*a+10*b+c.
+                        | a is corresponding to the cell average limiter
+                        | a = 0: do not adjust the cell averages
+                        |     1: set negative cell averages to zero
+                        |     2: recompute flux to adjust the cell averages
+                        | b is corresponding to the oscillation limiter
+                        | b = 0: do not attenuate the oscillation
+                        |     1: target space is linear
+                        |     2: target space is quadratic
+                        |     3: target space is the same as the space of the solution
+                        | c is corresponding to the positive limiter
+                        | c = 0: do not adjust the solution
+                        |     1: target space is linear
+                        |     2: target space is the same as the space of the solution
 CFL                     | In CFL test, CFL is given outside PME.m.
 mu = 1                  | Parameter of the threshold in the limiter
                         | who attenuates the oscillation.
@@ -185,7 +198,7 @@ function [ut_coord] = L_pme(u_coord, loop, type_limiter)
 This function is to solve the L(u)
 where u_t = L(u) is the first order ODE system.
 
-If calling limiter_yy.m, this function will call twice H_pme.m
+If needed, this function will call twice H_pme.m
 and use the combination of the flux to adjust the cell average
 and make sure the cell average is non-negative.
 (Sometimes there are some extreme small negative values due to the machine error.
@@ -207,51 +220,21 @@ function [u_coord] = Limiter(u_coord, loop, type_limiter)
 
 This function calls the corresponding limiter to adjust the solution.
 
-### limiter_zq.m
+### limiter_osc.m
 
 ```Matlab
-function [u_coord] = limiter_zq(u_coord, loop)
+function [u_coord] = limiter_osc(u_coord, loop, index_osc)
 ```
 
-This limiter is designed according to the following article.
-> Numerical Simulation for Porous Medium Equation
-> by Local Discontinuous Galerkin Finite Element Method
->
-> Auther: Qiang Zhang and Zi-Long Wu
+This limiter uses different ways to attenuate the oscillation.
 
-### limiter_yy.m
+### limiter_pos.m
 
 ```Matlab
-function [u_coord] = limiter_yy(u_coord, loop)
+function [u_coord] = limiter_pos(u_coord, loop, index_pos)
 ```
 
-This limiter is designed according to the following article.
-> Positivity-preserving high-order local discontinuous Galerkin method
-> for parabolic equations with blow-up solutions
->
-> Auther: LiGuo and YangYang
-
-This function uses zero to replace the extreme small negative cell averages
-and adjust those points with negative values.
-The codes of adjusting negative cell average is in L_pme.m.
-
-### limiter_pos1.m
-
-```Matlab
-function [u_coord] = limiter_pos1(u_coord, loop)
-```
-
-This limiter uses 2 degree polynomial to attenuate the oscillation
-and uses the same process as limiter_zq to keep solution positive.
-
-### limiter_pos2.m
-
-```Matlab
-function [u_coord] = limiter_pos2(u_coord, loop)
-```
-
-This limiter attenuate the oscillation without reducing the degree of polynomials
-and uses the same process as limiter_zq to keep solution positive.
+This limiter uses different ways to keep solution positive.
 
 ### Quadrature_Set.m
 

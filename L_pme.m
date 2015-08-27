@@ -13,7 +13,7 @@ global track_mean;
 Au = @(u) m * u.^(m-1);
 u = psi * u_coord;
 assert(sum(isnan(u(:))) == 0);
-if type_limiter == 2
+if type_limiter >= 200
     [flux_ur_linear,~] = H_pme(u, loop, psi(:,1), psi_z(:,1));
     [flux_ur,q] = H_pme(u, loop, psi, psi_z);
 
@@ -55,8 +55,8 @@ RHS = psi_z' * diag(weights) * (-sqrt(Au(u)) .* q) ...
 A = psi' * diag(weights) * psi;
 ut_coord = A \ (RHS / (dx/2));
 
-unew_coord = u_coord + dt * ut_coord;
-if type_limiter == 2
+if type_limiter >= 200
+    unew_coord = u_coord + dt * ut_coord;
     assert(sum(unew_coord(1,:) < -eps*10) == 0);
 end
 

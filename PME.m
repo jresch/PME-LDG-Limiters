@@ -36,7 +36,7 @@ dx = max(grid(2,:)) * 2;
 if type_problem == 0
     CFL =  PARA(4,3);
 else
-    CFL_list = [ 50, 70, 100, 130;
+    CFL_list = [ 50, 70, 110, 130;
             170, 270, 390, 490;
             490, 790, 1110, 1450;
             1110, 1850, 2610, 3370;];
@@ -81,35 +81,47 @@ for l = 1:loops
         fig = figure;
         set(fig,'visible','off');
         plot(X(:),u(:),'.-');
+        titlename = sprintf('m = %d, J = %d, order = %d, lim = %.3d, N = %d', m, J, basis_order, type_limiter,ceil(l/floor(loops/num_fig)));
+        title(titlename);
         axis([R_left,R_right,-0.1,1.2]);
         print(fig,'-dpng',figname);
     end
 end
-u = psi * u_coord;
-if type_problem == 0
+
+if type_problem <= 1
+    u = psi * u_coord;
     u_exact_pme = BarenblattSolution(X, 1+dT, m);
     err = sqrt(dx/2 * sum(weights * (u_exact_pme - psi * u_coord) .^ 2));
-    titlename = sprintf('m = %d, J = %d, order = %d', m, J, basis_order);
-    figure;plot(X(:),u(:),'b',X(:),u_exact_pme(:),'r');title(titlename);
-elseif type_problem == 1
-    u_exact_pme = BarenblattSolution(X, 1+dT, m);
-    err = sqrt(dx/2 * sum(weights * (u_exact_pme - psi * u_coord) .^ 2));
-    titlename = sprintf('m = %d, J = %d, order = %d', m, J, basis_order);
-    figure;plot(X(:),u(:),'b',X(:),u_exact_pme(:),'r');title(titlename);
+    if ~isnan(err)
+        filename = sprintf('PME-m%.1f-c%.1f-p%.1f-basis%d-lim%.3d-J%d',m,c,p,basis_order,type_limiter,J);
+        figname = sprintf('%s%s.png',path_data,filename);
+        filename = sprintf('%s%s.mat',path_data,filename);
+        save(filename,'u','u_coord','u_exact_pme','X','R_left','R_right','loops');
+        fig = figure;
+        set(fig,'visible','off');
+        plot(X(:),u(:),'b.-',X(:),u_exact_pme(:),'r');
+        titlename = sprintf('m = %d, J = %d, order = %d, lim = %.3d', m, J, basis_order, type_limiter);
+        title(titlename);
+        axis([R_left,R_right,-0.1,1.2]);
+        print(fig,'-dpng',figname);
+    end
 elseif type_problem == 2
-    filename = sprintf('PME-m%.1f-c%.1f-p%.1f-basis%d-lim%d-J%d-N%d',m,c,p,basis_order,type_limiter,J,ceil(loops/floor(loops/num_fig))+1);
+    u = psi * u_coord;
+    filename = sprintf('PME-m%.1f-c%.1f-p%.1f-basis%d-lim%.3d-J%d-N%d',m,c,p,basis_order,type_limiter,J,ceil(loops/floor(loops/num_fig))+1);
     figname = sprintf('%s%s.png',path_data,filename);
     filename = sprintf('%s%s.mat',path_data,filename);
     save(filename,'u','u_coord','X','R_left','R_right','loops');
     fig = figure;
     set(fig,'visible','off');
     plot(X(:),u(:),'.-');
+    titlename = sprintf('m = %d, J = %d, order = %d, lim = %.3d, N = %d', m, J, basis_order, type_limiter,ceil(loops/floor(loops/num_fig))+1);
+    title(titlename);
     axis([R_left,R_right,-0.1,1.2]);
     print(fig,'-dpng',figname);
     err = -1;
 end
-if type_limiter ~= 0
-    filename = sprintf('PME-m%.1f-c%.1f-p%.1f-basis%d-lim%d-J%d-ALL',m,c,p,basis_order,type_limiter,J);
+if type_limiter > 0
+    filename = sprintf('PME-m%.1f-c%.1f-p%.1f-basis%d-lim%.3d-J%d-ALL',m,c,p,basis_order,type_limiter,J);
     filename = sprintf('%s%s.mat',path_data,filename);
     save(filename,'m','c','p','R_left','R_right','dT', ...
         'J','basis_order','type_problem','type_limiter','mu', ...

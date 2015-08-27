@@ -1,16 +1,12 @@
 function [ u_coord ] = Limiter( u_coord, loop, type_limiter )
 
-switch type_limiter
-    case 0
-    case 1
-        u_coord = limiter_zq(u_coord, loop);
-    case 2
-        u_coord = limiter_yy(u_coord, loop);
-    case 3
-        u_coord = limiter_pos1(u_coord, loop);
-    case 4
-        u_coord = limiter_pos2(u_coord, loop);
+index_osc = floor(mod(type_limiter,100)/10);
+index_pos = mod(type_limiter,10);
+if index_osc ~= 0
+    u_coord = limiter_osc(u_coord, loop, type_limiter);
 end
-
+if index_pos ~= 0
+    u_coord = limiter_pos(u_coord, loop, type_limiter);
+end
 end
 

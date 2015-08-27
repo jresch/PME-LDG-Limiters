@@ -15,7 +15,7 @@ J = 50;
 min_basis_order = 1;
 max_basis_order = 4;
 type_problem = 0;
-type_limiter = 0;
+type_limiter = 000;
 CFL_table = zeros(max_basis_order - min_basis_order + 1, length(list_m));
 tic;
 for index_m = 1:length(list_m)
@@ -40,7 +40,7 @@ for index_m = 1:length(list_m)
         end
         CFL_table(i + 1, index_m) = CFL;
         fid = fopen(path_report,'at');
-        fprintf(fid, '%s | m = %d, J = %d, basis_order = %d, limiter = %d\n', datestr(now), m, J, basis_order, type_limiter);
+        fprintf(fid, '%s | m = %d, J = %d, basis_order = %d, limiter = %d, CFL = %d\n', datestr(now), m, J, basis_order, type_limiter, CFL);
         fclose(fid);
     end
 end
