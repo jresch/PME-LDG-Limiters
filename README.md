@@ -1,6 +1,6 @@
-# PME-DG-Limiters
+# PME-LDG-Limiters
 To compare several limiters
-by using **Runge-Kutta Discontinous Galerkin Finite Element Method**
+by using **Runge-Kutta Local Discontinous Galerkin Finite Element Method**
 to solve the following **Porous Medium Equation**
 with **periodic boundary condition** and different initial conditions.
 > u_t = (u^m)_xx - c * u^p
@@ -81,7 +81,7 @@ PARA                    | PARA = [m, c, p;
 points, weights         | size(points) = (7, 1)
                         | size(weights) = (1, 7)
                         | The gauss points in [-1, 1] and the corresponding weights.
-                        | (Using five points Gauss–Legendre quadrature.)
+                        | (Using five points Gaussï¿½Legendre quadrature.)
 grid                    | size(grid) = (2, J)
                         | grid(1, j) stores the center of the j-th cell.
                         | grid(2, j) stores half of the length of the j-th cell.
