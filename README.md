@@ -101,7 +101,7 @@ u                       | size(u) = (7, J)
 u_coord                 | size(u_coord) = (basis_order + 1, J)
                         | u_coord(i + 1, j) stores the weights of the i-th degree Legendre polynomial.
 track_mean              | size(track_mean) = (J, loops), it's a sparse matrix.
-                        | track_mean(j, loop) = cell average,
+                        | track_mean(j, loop) = cell average
                         | if the cell average of the j-th cell is negative, otherwise it equals 0.
 track_osc               | size(track_osc) = (J, loops), it's a sparse matrix.
                         | track_osc(j, loop) ~= 0, if there's oscillation in the j-th cell.

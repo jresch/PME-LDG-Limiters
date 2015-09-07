@@ -57,7 +57,9 @@ RHS = psi' * diag(weights) * u;
 u_coord = A \ RHS;
 u_coord = Limiter(u_coord,1,type_limiter);
 % Solve
+time_consume = 0;
 for l = 1:loops
+    time_start = toc;
     u0_coord = u_coord;
     % step 1
     u_coord = L_pme(u0_coord,l,type_limiter);
@@ -72,6 +74,8 @@ for l = 1:loops
     u3_coord = u0_coord / 3 + u2_coord * 2/3 + u_coord * dt*2/3;
     u3_coord = Limiter(u3_coord,l,type_limiter);
     u_coord = u3_coord;
+    time_end = toc;
+    time_consume = time_consume + time_end - time_start;
     if (type_problem == 2) && (mod(l,floor(loops/num_fig)) == 1)
         u = psi * u_coord;
         filename = sprintf('PME-m%.1f-c%.1f-p%.1f-basis%d-lim%d-J%d-N%d',m,c,p,basis_order,type_limiter,J,ceil(l/floor(loops/num_fig)));
@@ -87,7 +91,6 @@ for l = 1:loops
         print(fig,'-dpng',figname);
     end
 end
-
 if type_problem <= 1
     u = psi * u_coord;
     u_exact_pme = BarenblattSolution(X, 1+dT, m);
@@ -125,7 +128,7 @@ filename = sprintf('PME-m%.1f-c%.1f-p%.1f-basis%d-lim%.3d-J%d-ALL',m,c,p,basis_o
 filename = sprintf('%s%s.mat',path_data,filename);
 save(filename,'m','c','p','R_left','R_right','dT', ...
     'J','basis_order','type_problem','type_limiter','mu', ...
-    'loops','track_mean','track_osc','track_pos');
+    'loops','track_mean','track_osc','track_pos','time_consume');
 
 end
 
