@@ -120,12 +120,12 @@ elseif type_problem == 2
     print(fig,'-dpng',figname);
     err = -1;
 end
-if type_limiter > 0
-    filename = sprintf('PME-m%.1f-c%.1f-p%.1f-basis%d-lim%.3d-J%d-ALL',m,c,p,basis_order,type_limiter,J);
-    filename = sprintf('%s%s.mat',path_data,filename);
-    save(filename,'m','c','p','R_left','R_right','dT', ...
-        'J','basis_order','type_problem','type_limiter','mu', ...
-        'loops','track_mean','track_osc','track_pos');
-end
+
+filename = sprintf('PME-m%.1f-c%.1f-p%.1f-basis%d-lim%.3d-J%d-ALL',m,c,p,basis_order,type_limiter,J);
+filename = sprintf('%s%s.mat',path_data,filename);
+save(filename,'m','c','p','R_left','R_right','dT', ...
+    'J','basis_order','type_problem','type_limiter','mu', ...
+    'loops','track_mean','track_osc','track_pos');
+
 end
 

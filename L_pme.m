@@ -14,14 +14,18 @@ Au = @(u) m * u.^(m-1);
 u = psi * u_coord;
 assert(sum(isnan(u(:))) == 0);
 if type_limiter >= 200
-    [flux_ur_linear,~] = H_pme(u, loop, psi(:,1), psi_z(:,1));
+    assert(sum(u_coord(1,:)<0) == 0);
+    u_coord_con = u_coord;
+    u_coord_con(2:end,:) = 0;
+    u_con = psi * u_coord_con;
+    [flux_ur_con,~] = H_pme(u_con, loop, psi(:,1), psi_z(:,1));
     [flux_ur,q] = H_pme(u, loop, psi, psi_z);
 
     lambda = dt / dx;
-    gamma = eps - u_coord(1,:) ...
-        + lambda * (flux_ur_linear - flux_ur_linear([end,1:end-1]));
+    gamma = - u_coord(1,:) ...
+        + lambda * (flux_ur_con - flux_ur_con([end,1:end-1]));
     gamma = gamma / lambda;
-    F_r = flux_ur - flux_ur_linear;
+    F_r = flux_ur - flux_ur_con;
     F_l = F_r([end,1:end-1]);
     theta_r = ones(size(F_r));
     theta_l = theta_r;
@@ -42,7 +46,7 @@ if type_limiter >= 200
     theta_l(case4) = theta_r(case4);
     
     theta_r = min(theta_r, theta_l([2:end,1]));
-    flux_ur = theta_r .* F_r + flux_ur_linear;
+    flux_ur = theta_r .* F_r + flux_ur_con;
 else
     [flux_ur,q] = H_pme(u, loop, psi, psi_z);
 end
@@ -57,7 +61,7 @@ ut_coord = A \ (RHS / (dx/2));
 
 if type_limiter >= 200
     unew_coord = u_coord + dt * ut_coord;
-    assert(sum(unew_coord(1,:) < -eps*10) == 0);
+    assert(min(unew_coord(1,:)) > -10^-10);
 end
 
 end

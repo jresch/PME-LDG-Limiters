@@ -12,16 +12,18 @@ m = 3;
 R = 6;
 dT = 0.5;
 J = 50;
-min_basis_order = 3;
+min_basis_order = 1;
 max_basis_order = 4;
 type_problem = 1;
-list_limiter = [101,102,111,112,121,122,131,132];
+% list_limiter = [101,102,111,112,121,122,131,132];
+list_limiter = [000,100,200];
 err_table = zeros(2 * (max_basis_order - min_basis_order) + 2, length(list_limiter));
 tic;
 for i = 0: max_basis_order - min_basis_order
     basis_order = min_basis_order + i;
 for index_lim = 1:length(list_limiter)
     type_limiter = list_limiter(index_lim);
+    fprintf('%.3d\n',type_limiter);
         PARA = [m,0,0;
                 -R,R,dT;
                 J,basis_order,0;
